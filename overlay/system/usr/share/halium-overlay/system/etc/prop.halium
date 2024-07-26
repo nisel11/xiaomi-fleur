@@ -1,0 +1,8 @@
+# Model for libdeviceinfo
+ro.product.vendor.device=algiz
+# Camera model for taken pictures
+ro.product.model=Volla Phone Quintus
+# MTP device name
+ro.product.vendor.model=Volla Phone Quintus
+# Manufacturer in host dmesg
+ro.product.vendor.manufacturer=Volla
