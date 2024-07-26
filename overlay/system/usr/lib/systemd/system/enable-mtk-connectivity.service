@@ -1,0 +1,11 @@
+[Unit]
+Description=Load MediaTek connectivity kernel modules
+Wants=lxc-android-config.service
+After=lxc-android-config.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/enable-mtk-connectivity
+
+[Install]
+WantedBy=multi-user.target

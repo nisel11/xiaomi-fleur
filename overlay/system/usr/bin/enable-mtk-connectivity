@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Wait for the property system to be up.
+while [ ! -S /dev/socket/property_service ]; do
+    echo "waiting for property service..."
+    sleep 1
+done
+
+# Happens with wmt_drv/connfem loaded.
+while [ "$(getprop vendor.connsys.driver.ready)" != "yes" ]; do
+    echo "waiting for connsys driver..."
+    sleep 2
+done
+
+# Wait for nvram to be loaded.
+while [ "$(getprop vendor.service.nvram_init)" != "Ready" ]; do
+    echo "waiting for nvram init..."
+    sleep 1
+done
+
+modprobe wmt_chrdev_wifi
+modprobe wlan_drv_gen4m
+# Silence all wlan module debugging down to just errors/warnings
+printf '0xFF:0x03' > /proc/net/wlan/dbgLevel
+modprobe bt_drv_6877
+modprobe gps_drv
+modprobe fmradio_drv_connac2x
+
+# Wait for nvram to be ready.
+# TODO: will this even work?
+while [ "$(getprop vendor.mtk.nvram.ready)" != "1" ]; do
+    echo "waiting for nvram ready..."
+    sleep 0.2
+done
+
+# Enable Wi-Fi adapter in client mode
+while [ ! -c /dev/wmtWifi ]; do
+    echo "waiting for /dev/wmtWifi..."
+    sleep 0.2
+done
+
+# FIXME: echo: I/O error but networking comes up?
+echo S > /dev/wmtWifi || :
+
+# TODO: Enable WoWLAN to avoid network disconnect before suspend? probably should move this here from device-hacks, or move everything from here TO device-hacks?!
+#while [ ! -e /sys/class/ieee80211/phy0 ]; do
+#    echo "waiting for wlan0 interface to appear..."
+#    sleep 0.1
+#done
+#iw phy phy0 wowlan enable magic-packet

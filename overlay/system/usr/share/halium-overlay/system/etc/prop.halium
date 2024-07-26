@@ -6,3 +6,5 @@ ro.product.model=Volla Phone Quintus
 ro.product.vendor.model=Volla Phone Quintus
 # Manufacturer in host dmesg
 ro.product.vendor.manufacturer=Volla
+# urfkill expects this
+wifi.interface=wlan0
