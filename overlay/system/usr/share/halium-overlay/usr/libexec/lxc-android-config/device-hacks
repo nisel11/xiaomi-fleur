@@ -28,7 +28,11 @@ while [ ! -c /dev/wmtWifi ]; do sleep 0.2; done
 sleep 1
 
 # Finally enable the adapter in station mode
-echo S > /dev/wmtWifi
+echo P > /dev/wmtWifi
+
+# enables wireless display support
+setprop debug.stagefright.c2inputsurface 1
+setprop ubuntu.widi.supported 1
 
 # Enable WoWLAN to avoid network disconnect before suspend
 while [ ! -e /sys/class/ieee80211/phy0 ]; do sleep 1; done
