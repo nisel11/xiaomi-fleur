@@ -1,6 +1,6 @@
-algiz:
-  Vendor: Volla
-  PrettyName: Volla Phone Quintus
+rosemary:
+  Vendor: Xiaomi
+  PrettyName: Redmi Note 10S
   DeviceType: phone
   GridUnit: 21
   SupportedOrientations:
@@ -15,4 +15,4 @@ algiz:
     - true
   MirAndroidPlatformClientEglFlush:
     - all
-  VibrateDurationExtraMs: 50
+  VibrateDurationExtraMs: 40

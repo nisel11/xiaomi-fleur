@@ -2,7 +2,7 @@ import /init.recovery.project.rc
 
 on init
     setprop sys.usb.configfs 1
-    setprop sys.usb.ffs.aio_compat 0
+    setprop sys.usb.ffs.aio_compat 1
     # TODO: touchscreen doesn't work even though driver built-in, needs firmware?
 
 on fs && property:ro.debuggable=0

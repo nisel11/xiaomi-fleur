@@ -1,2 +1,5 @@
 # The device has dynamic partitions
 ro.boot.dynamic_partitions=true
+ro.virtual_ab.enabled=true
+ro.virtual_ab.compression.enabled=true
+ro.virtual_ab.userspace.snapshots.enabled=true

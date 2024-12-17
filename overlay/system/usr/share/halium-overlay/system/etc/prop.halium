@@ -1,10 +1,10 @@
 # Model for libdeviceinfo
-ro.product.vendor.device=algiz
+ro.product.vendor.device=rosemary
 # Camera model for taken pictures
-ro.product.model=Volla Phone Quintus
+ro.product.model=Redmi Note 10S
 # MTP device name
-ro.product.vendor.model=Volla Phone Quintus
+ro.product.vendor.model=Redmi Note 10S
 # Manufacturer in host dmesg
-ro.product.vendor.manufacturer=Volla
+ro.product.vendor.manufacturer=Xiaomi
 # urfkill expects this
 wifi.interface=wlan0
