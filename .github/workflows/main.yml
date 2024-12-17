@@ -1,0 +1,52 @@
+# Adapted from https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools/-/raw/main/gsi-port-ci.yml
+name: UBports build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on: buildjet-16vcpu-ubuntu-2204
+    permissions: write-all
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Update and Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends \
+            bc bison build-essential ca-certificates cpio curl \
+            fakeroot flex git kmod libssl-dev libtinfo5 lz4 python2 python3 \
+            sudo unzip wget xz-utils img2simg jq
+          sudo ln -sf /usr/bin/python2 /usr/bin/python
+          echo "BUILD_VER=rosemary-$(date "+%Y-%m-%d-%H%M")" >> $GITHUB_ENV
+
+      - name: Clone Adaptation Tools
+        run: |
+          git clone -b main \
+          https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
+          # Hack gh action console.
+          sed -i 's/dumb/unknown/g' build/common_functions.sh
+
+      - name: Run Build Script
+        run: |
+          ./build/build.sh
+          DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+          ./build/prepare-fake-ota.sh out/device_${DEVICE}.tar.xz ota
+          mkdir -p out
+          ./build/system-image-from-ota.sh ota/ubuntu_command out
+          mv out/rootfs.img out/ubuntu.img
+          tar -I 'xz -9 -T0' -cf out/ubuntu.img.tar.xz out/ubuntu.img
+
+      - name: Upload Flashable Artifacts
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            out/ubuntu.img.tar.xz
+            out/boot.img
+          artifactErrorsFailBuild: true
+          body: UBports
+          tag: ${{ env.BUILD_VER }}
+          token: ${{ secrets.GITHUB_TOKEN }}
