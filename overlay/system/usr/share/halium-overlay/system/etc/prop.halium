@@ -1,9 +1,9 @@
 # Model for libdeviceinfo
-ro.product.vendor.device=rosemary
+ro.product.vendor.device=fleur
 # Camera model for taken pictures
-ro.product.model=Redmi Note 10S
+ro.product.model=Redmi Note 11S
 # MTP device name
-ro.product.vendor.model=Redmi Note 10S
+ro.product.vendor.model=Redmi Note 11S
 # Manufacturer in host dmesg
 ro.product.vendor.manufacturer=Xiaomi
 # urfkill expects this

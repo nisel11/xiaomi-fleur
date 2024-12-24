@@ -21,7 +21,7 @@ jobs:
             fakeroot flex git kmod libssl-dev libtinfo5 lz4 python2 python3 \
             sudo unzip wget xz-utils img2simg jq
           sudo ln -sf /usr/bin/python2 /usr/bin/python
-          echo "BUILD_VER=rosemary-$(date "+%Y-%m-%d-%H%M")" >> $GITHUB_ENV
+          echo "BUILD_VER=fleur-$(date "+%Y-%m-%d-%H%M")" >> $GITHUB_ENV
 
       - name: Clone Adaptation Tools
         run: |

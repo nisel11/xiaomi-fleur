@@ -1,6 +1,6 @@
 rosemary:
   Vendor: Xiaomi
-  PrettyName: Redmi Note 10S
+  PrettyName: Redmi Note 11S
   DeviceType: phone
   GridUnit: 21
   SupportedOrientations:
